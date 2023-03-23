@@ -1,0 +1,30 @@
+<section>
+  <app-header [header]="'Opportunity Pulse'"></app-header>
+
+
+  <app-spinner [showSpinner]="showLoader"></app-spinner>
+
+  <div *ngIf="newHistoryMap" class="p-5">
+    <div class="mb-5" *ngFor="let historyPerDate of newHistoryMap | keyvalue: asIsOrder">
+      <span class="text-gray-500" [innerHTML]="historyPerDate.key | transformDate"></span>
+
+      <nz-card class="mb-3" *ngFor="let history of historyPerDate.value">
+        <div class="flex gap-5">
+          <fa-icon class="cursor-pointer" [icon]="['fas', 'coffee']"></fa-icon>
+
+
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <p [innerHTML]="history.Change"></p>
+              <p class="text-[12px] text-gray-500" [innerHTML]="history.TimeStr"></p>
+            </div>
+            <p class="text-[12px] text-gray-500" [innerHTML]="history.Label"></p>
+
+          </div>
+        </div>
+      </nz-card>
+
+      </div>
+    </div>
+
+</section>
