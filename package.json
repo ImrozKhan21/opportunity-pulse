@@ -10,7 +10,8 @@
     "dev:ssr": "ng run opportunity-pulse:serve-ssr",
     "serve:ssr": "node dist/opportunity-pulse/server/main.js",
     "build:ssr": "ng build && ng run opportunity-pulse:server",
-    "prerender": "ng run opportunity-pulse:prerender"
+    "prerender": "ng run opportunity-pulse:prerender",
+    "build:prod": "NODE_ENV=production ng build"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +31,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@nguniversal/express-engine": "^15.2.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "express": "^4.15.2",
     "ng-zorro-antd": "^15.0.3",
     "rxjs": "~7.8.0",

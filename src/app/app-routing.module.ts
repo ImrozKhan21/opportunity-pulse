@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ChangeHistoryComponent} from "./components/change-history/change-history.component";
+import {SalespersonComponent} from "./components/salesperson/salesperson.component";
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: "person",
-    component: ChangeHistoryComponent
+    component: SalespersonComponent
   },
   {
     path: "dashboard",

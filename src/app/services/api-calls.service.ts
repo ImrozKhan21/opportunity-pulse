@@ -12,13 +12,23 @@ export class ApiCallsService {
   constructor(private configService: ConfigService, private http: HttpClient) {
   }
 
-  getChangeHistory() {
-    const url = `/API/Sales/Opportunity%20Pulse`;
+  getChangeHistory(typeId: string, pulseId: string) {
+    const url = `/API/Sales/Opportunity%20Pulse?%40pulseId=${pulseId}&%40typeId=${typeId}`;
+    return this.getResponse(url);
+  }
+
+  getSalesPerson() {
+    const url = `/API/Zero-Integration%20App%20Factory/Get%20Salesperson%20for%20Pulse`;
     return this.getResponse(url);
   }
 
   getNavigation() {
     const url = `/API/Zero-Integration%20App%20Factory/Get%20Opportunity%20Pulse%20Navigation`;
+    return this.getResponse(url);
+  }
+
+  getFilters() {
+    const url = `/API/Zero-Integration%20App%20Factory/Get%20Opportunity%20Pulse%20Filters`;
     return this.getResponse(url);
   }
 

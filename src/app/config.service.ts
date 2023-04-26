@@ -26,7 +26,8 @@ export class ConfigService {
   }
 
   getEnvUrl() {
-    const whichConfig = environment.production ? 'config_local.json' : 'config_local.json';
+    console.log('1111 en', environment)
+    const whichConfig = environment.production ? 'config_local.json' : 'config_prod.json';
     const url = `${this.baseUrl}assets/${whichConfig}`;
     return this.http
       .get<any>(url).pipe(

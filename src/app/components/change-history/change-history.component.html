@@ -1,30 +1,78 @@
+<app-spinner class="item-center-n-relative" [showSpinner]="showLoader"></app-spinner>
+
 <section>
   <app-header [header]="'Opportunity Pulse'"></app-header>
 
 
-  <app-spinner [showSpinner]="showLoader"></app-spinner>
+  <div *ngIf="newHistoryMap" class="p-5 pb-[70px]">
+    <div class="mb-3 flex justify-between items-center">
+      <div>
+        <span class="font-semibold text-[18px]">Updates </span>
+        <span class="text-gray-500">({{totalCount}})</span>
 
-  <div *ngIf="newHistoryMap" class="p-5">
-    <div class="mb-5" *ngFor="let historyPerDate of newHistoryMap | keyvalue: asIsOrder">
-      <span class="text-gray-500" [innerHTML]="historyPerDate.key | transformDate"></span>
+      </div>
 
-      <nz-card class="mb-3" *ngFor="let history of historyPerDate.value">
-        <div class="flex gap-5">
-          <fa-icon class="cursor-pointer" [icon]="['fas', 'coffee']"></fa-icon>
-
-
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <p [innerHTML]="history.Change"></p>
-              <p class="text-[12px] text-gray-500" [innerHTML]="history.TimeStr"></p>
-            </div>
-            <p class="text-[12px] text-gray-500" [innerHTML]="history.Label"></p>
-
-          </div>
-        </div>
-      </nz-card>
-
+      <div class="flex items-center gap-2 cursor-pointer text-gray-500" (click)="showFilterModal = true">
+        <fa-icon class="cursor-pointer" [icon]="['fas', 'sliders']"></fa-icon>
+        <span class="text-gray-500">Sort & filter</span>
       </div>
     </div>
 
+    <div class="mb-5" *ngFor="let historyPerDate of newHistoryMap | keyvalue: asIsOrder">
+      <span class="text-gray-500 text-[14px]" [innerHTML]="historyPerDate.key | transformDate"></span>
+
+      <nz-card class="mb-3" *ngFor="let history of historyPerDate.value">
+        <div class="flex gap-5 w-full">
+          <!--
+                    <fa-icon class="mt-1 cursor-pointer" [icon]="['fas', 'bell']" [size]="'lg'"></fa-icon>
+          -->
+          <img [src]="'assets/images/'+pulseTypeImageMap[history.pulseType]+'-Positive.svg'">
+
+          <div class="w-full">
+            <div class="flex items-center justify-between w-full gap-5 mb-2">
+              <p class="line-clamp-1 text-[13px] font-semibold max-w-[178px] text-green-600" [title]="history.pulseType"
+                 [innerHTML]="history.pulseType"></p>
+              <p class="text-[12px] text-gray-500" [innerHTML]="history.timeStr"></p>
+            </div>
+
+            <div class="flex items-start gap-2 mb-1">
+              <img style="width: 25px; height: 25px" [src]="history.companyLogo" alt="company_logo">
+              <p class="basis-3/4 font-bold line-clamp-1" [title]="history.pulseHeader"
+                 [innerHTML]="history.pulseHeader"></p>
+            </div>
+
+            <p class="text-[12px] text-gray-500 line-clamp-1" [title]="history.pulseDesc"
+               [innerHTML]="history.pulseDesc"></p>
+
+          </div>
+
+          <fa-icon class="mt-1 cursor-pointer item-right-center-n-relative mr-4 text-gray-400"
+                   [icon]="['fas', 'chevron-right']" [size]="'1x'"></fa-icon>
+
+        </div>
+      </nz-card>
+
+    </div>
+  </div>
+
 </section>
+
+
+<nz-modal [(nzVisible)]="showFilterModal" nzTitle="Sort & filter" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+          nzOkText="Apply">
+  <ng-container *nzModalContent>
+    <app-spinner class="item-center-n-relative" [showSpinner]="showLoader"></app-spinner>
+    <div class="mb-5">
+      <p class="text-gray-500 text-sm mb-2">Sort By</p>
+      <nz-radio-group [(ngModel)]="sortBy">
+        <label nz-radio nzValue="LATEST">Latest</label>
+        <label nz-radio nzValue="OLDEST">Oldest</label>
+      </nz-radio-group>
+    </div>
+
+    <div class="mb-5" *ngFor="let filterKey of filterKeys">
+      <p class="text-gray-500 text-sm mb-2">{{filterKey}}</p>
+      <nz-checkbox-group class="flex flex-col" [(ngModel)]="filters[filterKey]" (ngModelChange)="log(filters[filterKey])"></nz-checkbox-group>
+    </div>
+  </ng-container>
+</nz-modal>

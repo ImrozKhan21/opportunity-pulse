@@ -2,6 +2,6 @@
   <div class="flex flex-col" *ngFor="let option of navigationOptions" (click)="goToRoute(option)">
     <fa-icon *ngIf="option.icon" [icon]="getIcon(option)" [size]="'lg'"
              [ngClass]="{'active': currentActive.route === option.route}"></fa-icon>
-    <p [innerHTML]="option.label"></p>
+    <p [innerHTML]="option.label" [ngClass]="{'active': currentActive.route === option.route}"></p>
   </div>
 </div>

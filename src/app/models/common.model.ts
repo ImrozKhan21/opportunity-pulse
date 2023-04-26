@@ -7,12 +7,16 @@ export interface IEnv {
 }
 
 export interface IChangeHistory {
-  Change: string;
-  DateStr: string;
-  TimeStr: string;
-  Id: string;
-  Label: string;
+  pulseDesc: string;
+  dateStr: string;
+  timeStr: string;
+  id: string;
+  pulseHeader: string;
   updatedDateStr: string;
+  isToday: string;
+  dealType: string;
+  pulseType: string;
+  companyLogo: string;
 }
 
 export interface INavigation {
@@ -20,4 +24,34 @@ export interface INavigation {
   label: string;
   order: number;
   route: string;
+}
+
+export interface IFilter {
+  label: string;
+  id: string;
+  order: number;
+  checked: boolean;
+  section: string;
+  value: string;
+}
+
+export interface ISalesperson {
+  person: string;
+  photo: string;
+  position: string;
+}
+
+
+export const PulseTypeImageMap: any = {
+  'EST/ACT CLOSE DATE CHANGE': 'est_close_date',
+  'STATUS CHANGE': 'status_change',
+  'NEW OPPORTUNITY': 'new_opportunity',
+  'ARR CHANGE': 'arr_change',
+  'ONE TIME REVENUE CHANGE': 'one_time_revenue'
+}
+
+
+export const PayloadMap = {
+  'Opp Type': 'typeId',
+  'Pulse Type': 'pulseId'
 }

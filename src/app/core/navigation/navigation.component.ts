@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {INavigation} from "../../models/common.model";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
@@ -15,7 +15,7 @@ export class NavigationComponent implements OnInit{
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.currentActive = this.navigationOptions[0];
+    this.currentActive = this.navigationOptions.find(option => this.router.url.includes(option.route)) || this.navigationOptions[0];
   }
 
   getIcon(option: INavigation): IconProp {
