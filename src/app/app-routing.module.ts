@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ChangeHistoryComponent} from "./components/change-history/change-history.component";
 import {SalespersonComponent} from "./components/salesperson/salesperson.component";
+import {ExceptionsComponent} from "./components/exceptions/exceptions.component";
 
 const routes: Routes = [
   {
@@ -21,8 +22,12 @@ const routes: Routes = [
     component: SalespersonComponent
   },
   {
+    path: "exceptions",
+    component: ExceptionsComponent
+  },
+  {
     path: "dashboard",
-    component: ChangeHistoryComponent
+    component: ExceptionsComponent
   },
 ];
 

@@ -17,6 +17,7 @@ export interface IChangeHistory {
   dealType: string;
   pulseType: string;
   companyLogo: string;
+  icon: string;
 }
 
 export interface INavigation {
@@ -41,13 +42,23 @@ export interface ISalesperson {
   position: string;
 }
 
+export interface IException {
+  companyLabel: string;
+  companyLogo: string;
+  error: string;
+  person: string;
+  photo: string;
+  text: string;
+  url: string;
+}
+
 
 export const PulseTypeImageMap: any = {
   'EST/ACT CLOSE DATE CHANGE': 'est_close_date',
   'STATUS CHANGE': 'status_change',
   'NEW OPPORTUNITY': 'new_opportunity',
   'ARR CHANGE': 'arr_change',
-  'ONE TIME REVENUE CHANGE': 'one_time_revenue'
+  'EST ONE-TIME REVENUE CHANGE': 'one_time_revenue'
 }
 
 

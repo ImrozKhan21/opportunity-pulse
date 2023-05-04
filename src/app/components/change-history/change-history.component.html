@@ -26,12 +26,13 @@
           <!--
                     <fa-icon class="mt-1 cursor-pointer" [icon]="['fas', 'bell']" [size]="'lg'"></fa-icon>
           -->
-          <img [src]="'assets/images/'+pulseTypeImageMap[history.pulseType]+'-Positive.svg'">
+          <img [src]="'assets/images/'+pulseTypeImageMap[history.pulseType]+'-'+history.icon+'.svg'">
 
           <div class="w-full">
             <div class="flex items-center justify-between w-full gap-5 mb-2">
-              <p class="line-clamp-1 text-[13px] font-semibold max-w-[178px] text-green-600" [title]="history.pulseType"
-                 [innerHTML]="history.pulseType"></p>
+              <p class="text-[13px] font-semibold min-w-[178px]"
+                 [ngClass]="{'text-green-600': history.icon === 'positive', 'text-red-600': history.icon === 'negative' }"
+                 [title]="history.pulseType" [innerHTML]="history.pulseType"></p>
               <p class="text-[12px] text-gray-500" [innerHTML]="history.timeStr"></p>
             </div>
 

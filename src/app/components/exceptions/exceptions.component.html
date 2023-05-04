@@ -1,0 +1,35 @@
+<app-spinner class="item-center-n-relative" [showSpinner]="showLoader"></app-spinner>
+
+<section>
+  <app-header [header]="'Exceptions'"></app-header>
+
+  <div class="p-5 pb-[70px]" *ngIf="exceptions?.length">
+    <nz-card class="mb-3" *ngFor="let exception of exceptions" (click)="goToUrl(exception)">
+      <div class="flex items-center gap-5">
+        <img class="rounded-[50%]" style="width: 50px; height: 50px;min-width: 50px; min-height: 50px" [src]="'data:image/png;base64,' + exception.photo"
+             alt="photo">
+        <div class="flex flex-col w-full">
+          <div class="flex justify-between items-center w-full">
+            <p class="text-[14px] w-full font-bold line-clamp-1 mb-2" [innerHTML]="exception.error"></p>
+            <img style="width: 25px; height: 25px" src="assets/images/warning.svg" alt="warning">
+          </div>
+
+          <div class="flex items-start gap-2 mb-2">
+            <img style="width: 25px; height: 25px" [src]="exception.companyLogo" alt="company_logo">
+            <p class="basis-3/4 font-semibold line-clamp-1" [title]="exception.companyLabel"
+               [innerHTML]="exception.companyLabel"></p>
+          </div>
+
+          <p class="line-clamp-1" [title]="exception.text" [innerHTML]="exception.text"></p>
+
+        </div>
+
+
+        <fa-icon class="mt-1 cursor-pointer item-right-center-n-relative mr-4 text-gray-400"
+                 [icon]="['fas', 'chevron-right']" [size]="'1x'"></fa-icon>
+      </div>
+
+    </nz-card>
+
+  </div>
+</section>

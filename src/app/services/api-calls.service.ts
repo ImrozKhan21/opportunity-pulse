@@ -1,25 +1,43 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {ConfigService} from "../config.service";
 import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
+import {IChangeHistory, IException} from "../models/common.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiCallsService {
+  cachedHistory: IChangeHistory[];
+  cachedExceptions: IException[];
 
   constructor(private configService: ConfigService, private http: HttpClient) {
   }
 
   getChangeHistory(typeId: string, pulseId: string) {
-    const url = `/API/Sales/Opportunity%20Pulse?%40pulseId=${pulseId}&%40typeId=${typeId}`;
-    return this.getResponse(url);
+    const url = `/API/Zero-Integration%20App%20Factory/Opportunity%20Pulse%202?%40pulseId=${pulseId}&%40typeId=${typeId}`;
+    if (this.cachedHistory) {
+      return of(this.cachedHistory)
+    }
+    return this.getResponse(url).pipe(tap(resp => {
+      this.cachedHistory = resp;
+    }));
   }
 
   getSalesPerson() {
     const url = `/API/Zero-Integration%20App%20Factory/Get%20Salesperson%20for%20Pulse`;
     return this.getResponse(url);
+  }
+
+  getExceptions() {
+    const url = `/API/Zero-Integration%20App%20Factory/Opportunity%20Pulse%20Exceptions`;
+    if (this.cachedExceptions) {
+      return of(this.cachedExceptions)
+    }
+    return this.getResponse(url).pipe(tap(resp => {
+      this.cachedExceptions = resp;
+    }));
   }
 
   getNavigation() {

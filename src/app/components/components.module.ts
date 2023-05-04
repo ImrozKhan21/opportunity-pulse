@@ -18,12 +18,14 @@ import { SalespersonComponent } from './salesperson/salesperson.component';
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzAutocompleteModule} from "ng-zorro-antd/auto-complete";
+import { ExceptionsComponent } from './exceptions/exceptions.component';
 
 
 @NgModule({
   declarations: [
     ChangeHistoryComponent,
-    SalespersonComponent
+    SalespersonComponent,
+    ExceptionsComponent
   ],
   exports: [
     ChangeHistoryComponent

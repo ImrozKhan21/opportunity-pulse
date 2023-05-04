@@ -20,7 +20,6 @@ export class SalespersonComponent implements OnInit{
   async ngOnInit() {
     this.showLoader = true;
     this.salesperson = await lastValueFrom(this.apiCallsService.getSalesPerson());
-    console.log('111 this.salesperson', this.salesperson);
     this.filteredOptions = [...this.salesperson];
     this.filteredSalesperson = [...this.salesperson];
     this.showLoader = false;
