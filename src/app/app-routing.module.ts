@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {ChangeHistoryComponent} from "./components/change-history/change-history.component";
 import {SalespersonComponent} from "./components/salesperson/salesperson.component";
 import {ExceptionsComponent} from "./components/exceptions/exceptions.component";
+import {OpportunityComponent} from "./components/opportunity/opportunity.component";
+import {OpportunitiesComponent} from "./components/opportunities/opportunities.component";
 
 const routes: Routes = [
   {
@@ -14,8 +16,16 @@ const routes: Routes = [
     component: ChangeHistoryComponent
   },
   {
+    path: "opportunity",
+    component: OpportunityComponent
+  },
+  {
+    path: "opportunity/:id",
+    component: OpportunityComponent
+  },
+  {
     path: "opportunities",
-    component: ChangeHistoryComponent
+    component: OpportunitiesComponent
   },
   {
     path: "person",

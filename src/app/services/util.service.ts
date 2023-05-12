@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from "@angular/common";
+import {WindowRefService} from "./window-ref.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: any, private windowRef : WindowRefService) { }
 
   getDateAndTime(dateString: string): {date: string, time: string} {
     // Match the date and time components using a regular expression
@@ -17,5 +19,12 @@ export class UtilService {
 
     const time = timeStr.replace(/:(\d{2})/, ":$1 ").toLowerCase();
     return {date: dateStr, time: timeStr};
+  }
+
+  setCurrentUrl() {
+    if (isPlatformBrowser(this.platformId)) {
+      const url = this.windowRef.nativeWindow.location.href;
+      sessionStorage.setItem('current-url-pulse', url);
+    }
   }
 }

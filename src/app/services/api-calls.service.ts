@@ -15,14 +15,19 @@ export class ApiCallsService {
   constructor(private configService: ConfigService, private http: HttpClient) {
   }
 
-  getChangeHistory(typeId: string, pulseId: string) {
-    const url = `/API/Zero-Integration%20App%20Factory/Opportunity%20Pulse%202?%40pulseId=${pulseId}&%40typeId=${typeId}`;
-    if (this.cachedHistory) {
+  getChangeHistory(typeId: string, pulseId: string, opportunityId: string, ownerId: string) {
+    const url = `/API/Zero-Integration%20App%20Factory/Opportunity%20Pulse%202?%40opportunityId=${opportunityId}&%40ownerId=${ownerId}&%40pulseId=${pulseId}&%40typeId=${typeId}`;
+/*    if (this.cachedHistory) {
       return of(this.cachedHistory)
-    }
+    }*/
     return this.getResponse(url).pipe(tap(resp => {
       this.cachedHistory = resp;
     }));
+  }
+
+  getOpportunities(ownerId: string) {
+    const url = `/API/Zero-Integration%20App%20Factory/Get%20Opportunities?%40ownerId=${ownerId}`;
+    return this.getResponse(url);
   }
 
   getSalesPerson() {

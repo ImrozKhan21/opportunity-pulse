@@ -1,8 +1,41 @@
 <app-spinner class="item-center-n-relative" [showSpinner]="showLoader"></app-spinner>
 
 <section>
-  <app-header [header]="'Opportunity Pulse'"></app-header>
+  <app-header *ngIf="!hideHeader" [header]="'Opportunity Pulse'"></app-header>
 
+  <div class="p-5" *ngIf="history?.length && hideHeader">
+    <div class="bg-white mb-5">
+      <div class="relative">
+        <div [ngStyle]="{'background-color': '#9CD580'}" class="h-[100px] w-full"></div>
+        <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].companyLogo" alt="company_logo">
+      </div>
+
+      <div class="p-5 pt-[45px] flex flex-col items-center">
+        <p class="text-xl text-center font-semibold">{{history[0].account}}</p>
+        <p class="text-2xl text-center font-semibold">{{history[0].pulseHeader}}</p>
+        <p class="text-gray-500">{{history[0].openDate}}</p>
+
+        <button class="mt-3" nz-button nzType="primary" [nzSize]="'large'" nzShape="round">
+          {{history[0].buttonLabel}}
+        </button>
+      </div>
+    </div>
+
+    <nz-card>
+      <h2 class="text-xl font-semibold">Owner</h2>
+      <nz-divider></nz-divider>
+      <div class="flex gap-5">
+        <img class="rounded-[50%]" style="width: 50px; height: 50px;min-width: 50px; min-height: 50px"
+             [src]="'data:image/png;base64,' + history[0].ownerImage"
+             alt="photo">
+        <div class="flex flex-col">
+          <p class="text-lg font-semibold" [innerHTML]="history[0].owner"></p>
+          <p class="text-gray-500" [innerHTML]="history[0].ownerTitle"></p>
+        </div>
+      </div>
+    </nz-card>
+
+  </div>
 
   <div *ngIf="newHistoryMap" class="p-5 pb-[70px]">
     <div class="mb-3 flex justify-between items-center">
@@ -21,7 +54,7 @@
     <div class="mb-5" *ngFor="let historyPerDate of newHistoryMap | keyvalue: asIsOrder">
       <span class="text-gray-500 text-[14px]" [innerHTML]="historyPerDate.key | transformDate"></span>
 
-      <nz-card class="mb-3" *ngFor="let history of historyPerDate.value">
+      <nz-card class="mb-3" *ngFor="let history of historyPerDate.value" (click)="goToOpportunity(history)">
         <div class="flex gap-5 w-full">
           <!--
                     <fa-icon class="mt-1 cursor-pointer" [icon]="['fas', 'bell']" [size]="'lg'"></fa-icon>

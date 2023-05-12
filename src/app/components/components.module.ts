@@ -19,13 +19,18 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzAutocompleteModule} from "ng-zorro-antd/auto-complete";
 import { ExceptionsComponent } from './exceptions/exceptions.component';
+import { OpportunityComponent } from './opportunity/opportunity.component';
+import {NzButtonModule} from "ng-zorro-antd/button";
+import { OpportunitiesComponent } from './opportunities/opportunities.component';
 
 
 @NgModule({
   declarations: [
     ChangeHistoryComponent,
     SalespersonComponent,
-    ExceptionsComponent
+    ExceptionsComponent,
+    OpportunityComponent,
+    OpportunitiesComponent
   ],
   exports: [
     ChangeHistoryComponent
@@ -46,7 +51,8 @@ import { ExceptionsComponent } from './exceptions/exceptions.component';
         NzRadioModule,
         NzInputModule,
         NzIconModule,
-        NzAutocompleteModule
+        NzAutocompleteModule,
+        NzButtonModule
     ]
 })
 export class ComponentsModule {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiCallsService} from "../../services/api-calls.service";
 import {lastValueFrom} from "rxjs";
 import {ISalesperson} from "../../models/common.model";
+import {UtilService} from "../../services/util.service";
 
 @Component({
   selector: 'app-salesperson',
@@ -31,7 +32,7 @@ export class SalespersonComponent implements OnInit{
 
   onChange(value: any): void {
     const actualValue = value?.person ? value.person : value;
-   this.filteredOptions = this.salesperson.filter(option => option?.person.toLowerCase().indexOf(actualValue.toLowerCase()) !== -1);
+    this.filteredOptions = this.salesperson.filter(option => option?.person.toLowerCase().indexOf(actualValue.toLowerCase()) !== -1);
   }
 
   clearSelection() {

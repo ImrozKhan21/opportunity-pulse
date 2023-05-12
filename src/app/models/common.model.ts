@@ -18,6 +18,15 @@ export interface IChangeHistory {
   pulseType: string;
   companyLogo: string;
   icon: string;
+  account: string;
+  buttonLabel: string;
+  openDate: string;
+  owner: string;
+  ownerTitle: string;
+  ownerImage: string;
+  previousValue: string;
+  value: string;
+  version: string;
 }
 
 export interface INavigation {
@@ -65,4 +74,17 @@ export const PulseTypeImageMap: any = {
 export const PayloadMap = {
   'Opp Type': 'typeId',
   'Pulse Type': 'pulseId'
+}
+
+
+export interface IOpportunity {
+  pulseHeader: string;
+  version: string;
+  pulseDesc: string;
+  companyLogo: string;
+  icon: string;
+  dateStr: string;
+  timeStr: string;
+  owner: string;
+  id: string;
 }
