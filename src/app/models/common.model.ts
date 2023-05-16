@@ -49,6 +49,7 @@ export interface ISalesperson {
   person: string;
   photo: string;
   position: string;
+  ownerId: string;
 }
 
 export interface IException {

@@ -1,0 +1,21 @@
+<section class="opportunity-details">
+  <nz-card>
+    <ng-container nzContent>
+      <ng-container *ngFor="let item of labelValuePairs">
+        <div class="mb-1"><span class="font-semibold mr-1">{{item.label}}:</span> <span>{{item.value}}</span></div>
+      </ng-container>
+
+      <nz-divider></nz-divider>
+
+      <nz-collapse nzGhost [nzExpandIconPosition]="'right'">
+        <nz-collapse-panel [nzHeader]="'Why Cinchy'">
+          <div class="mt-2">
+            <ng-container *ngFor="let item of expansionLabelValuePairs">
+              <div class="mb-2"><p class="font-semibold mr-1">{{item.label}}:</p> <p>{{item.value}}</p></div>
+            </ng-container>
+          </div>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </ng-container>
+  </nz-card>
+</section>

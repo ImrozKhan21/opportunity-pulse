@@ -34,7 +34,7 @@
       <span nz-icon nzType="search"></span>
     </ng-template>
 
-    <nz-card class="mb-3" *ngFor="let person of filteredSalesperson">
+    <nz-card class="mb-3" *ngFor="let person of filteredSalesperson" (click)="goToOpportunity(person)">
       <div class="flex gap-5">
         <img class="rounded-[50%]" style="width: 50px; height: 50px;min-width: 50px; min-height: 50px" [src]="'data:image/png;base64,' + person.photo"
              alt="photo">

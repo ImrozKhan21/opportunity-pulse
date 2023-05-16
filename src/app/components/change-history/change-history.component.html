@@ -3,7 +3,8 @@
 <section>
   <app-header *ngIf="!hideHeader" [header]="'Opportunity Pulse'"></app-header>
 
-  <div class="p-5" *ngIf="history?.length && hideHeader">
+  <!--OPPORTUNITY VIEW-->
+  <div class="p-5" *ngIf="history?.length && hideHeader && !showSalespersonView">
     <div class="bg-white mb-5">
       <div class="relative">
         <div [ngStyle]="{'background-color': '#9CD580'}" class="h-[100px] w-full"></div>
@@ -21,7 +22,7 @@
       </div>
     </div>
 
-    <nz-card>
+    <nz-card class="mb-5">
       <h2 class="text-xl font-semibold">Owner</h2>
       <nz-divider></nz-divider>
       <div class="flex gap-5">
@@ -35,7 +36,25 @@
       </div>
     </nz-card>
 
+    <app-opportunity-details [opportunityId]="history[0].id"></app-opportunity-details>
+
   </div>
+
+ <!-- SALESPERSON VIEW-->
+  <div class="p-5" *ngIf="history?.length && hideHeader && showSalespersonView">
+    <div class="bg-white mb-5">
+      <div class="relative">
+        <div [ngStyle]="{'background-color': '#35005f'}" class="h-[100px] w-full"></div>
+        <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].ownerImage" alt="owner_image">
+      </div>
+
+      <div class="p-5 pt-[45px] flex flex-col items-center">
+        <p class="text-xl text-center font-semibold">{{history[0].owner}}</p>
+        <p class="text-gray-500">{{history[0].ownerTitle}}</p>
+      </div>
+    </div>
+  </div>
+
 
   <div *ngIf="newHistoryMap" class="p-5 pb-[70px]">
     <div class="mb-3 flex justify-between items-center">
@@ -69,13 +88,13 @@
               <p class="text-[12px] text-gray-500" [innerHTML]="history.timeStr"></p>
             </div>
 
-            <div class="flex items-start gap-2 mb-1">
+            <div class="flex items-center gap-2 mb-1" *ngIf="!hideCompanyInfo || showSalespersonView">
               <img style="width: 25px; height: 25px" [src]="history.companyLogo" alt="company_logo">
-              <p class="basis-3/4 font-bold line-clamp-1" [title]="history.pulseHeader"
+              <p class="basis-3/4 font-bold" [title]="history.pulseHeader"
                  [innerHTML]="history.pulseHeader"></p>
             </div>
 
-            <p class="text-[12px] text-gray-500 line-clamp-1" [title]="history.pulseDesc"
+            <p class="text-[12px] text-gray-500" [title]="history.pulseDesc"
                [innerHTML]="history.pulseDesc"></p>
 
           </div>

@@ -22,6 +22,8 @@ import { ExceptionsComponent } from './exceptions/exceptions.component';
 import { OpportunityComponent } from './opportunity/opportunity.component';
 import {NzButtonModule} from "ng-zorro-antd/button";
 import { OpportunitiesComponent } from './opportunities/opportunities.component';
+import { SalespersonOpportunitiesComponent } from './salesperson-opportunities/salesperson-opportunities.component';
+import { OpportunityDetailsComponent } from './opportunity-details/opportunity-details.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { OpportunitiesComponent } from './opportunities/opportunities.component'
     SalespersonComponent,
     ExceptionsComponent,
     OpportunityComponent,
-    OpportunitiesComponent
+    OpportunitiesComponent,
+    SalespersonOpportunitiesComponent,
+    OpportunityDetailsComponent
   ],
   exports: [
     ChangeHistoryComponent

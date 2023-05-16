@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiCallsService} from "../../services/api-calls.service";
 import {lastValueFrom} from "rxjs";
-import {ISalesperson} from "../../models/common.model";
+import {IOpportunity, ISalesperson} from "../../models/common.model";
 import {UtilService} from "../../services/util.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-salesperson',
@@ -15,7 +16,7 @@ export class SalespersonComponent implements OnInit{
   inputValue?: string;
   filteredOptions: ISalesperson[] = [];
   filteredSalesperson: ISalesperson[] = [];
-  constructor(private apiCallsService: ApiCallsService) {
+  constructor(private apiCallsService: ApiCallsService, private router: Router) {
   }
 
   async ngOnInit() {
@@ -39,6 +40,10 @@ export class SalespersonComponent implements OnInit{
     this.filteredSalesperson = [...this.salesperson];
     this.filteredOptions = [...this.salesperson];
     this.inputValue = ''
+  }
+
+  goToOpportunity(person: ISalesperson) {
+    this.router.navigate([`/salesperson/${person.ownerId}`])
   }
 
 }

@@ -5,6 +5,9 @@ import {SalespersonComponent} from "./components/salesperson/salesperson.compone
 import {ExceptionsComponent} from "./components/exceptions/exceptions.component";
 import {OpportunityComponent} from "./components/opportunity/opportunity.component";
 import {OpportunitiesComponent} from "./components/opportunities/opportunities.component";
+import {
+  SalespersonOpportunitiesComponent
+} from "./components/salesperson-opportunities/salesperson-opportunities.component";
 
 const routes: Routes = [
   {
@@ -22,6 +25,10 @@ const routes: Routes = [
   {
     path: "opportunity/:id",
     component: OpportunityComponent
+  },
+  {
+    path: "salesperson/:id",
+    component: SalespersonOpportunitiesComponent
   },
   {
     path: "opportunities",

@@ -29,6 +29,12 @@ export class ApiCallsService {
     const url = `/API/Zero-Integration%20App%20Factory/Get%20Opportunities?%40ownerId=${ownerId}`;
     return this.getResponse(url);
   }
+//
+
+  getOpportunityDetails(opportunityId: string) {
+    const url = `/API/Zero-Integration%20App%20Factory/Get%20Opportunity%20Details?%40opportunityId=${opportunityId}`;
+    return this.getResponse(url);
+  }
 
   getSalesPerson() {
     const url = `/API/Zero-Integration%20App%20Factory/Get%20Salesperson%20for%20Pulse`;

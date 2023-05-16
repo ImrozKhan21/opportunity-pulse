@@ -4,6 +4,7 @@ import {lastValueFrom, take} from "rxjs";
 import {IChangeHistory, IFilter, PayloadMap, PulseTypeImageMap} from "../../models/common.model";
 import {UtilService} from "../../services/util.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {WindowRefService} from "../../services/window-ref.service";
 
 @Component({
   selector: 'app-change-history',
@@ -12,6 +13,8 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 })
 export class ChangeHistoryComponent implements OnInit {
   @Input() hideHeader: boolean;
+  @Input() hideCompanyInfo: boolean;
+  @Input() showSalespersonView: boolean;
   history: IChangeHistory[];
   filteredHistory: IChangeHistory[];
   showLoader = false;
@@ -23,23 +26,29 @@ export class ChangeHistoryComponent implements OnInit {
   showFilterModal: boolean;
   sortBy: string;
   pulseTypeImageMap = PulseTypeImageMap;
-  opportunityId: string;
+  opportunityId = '';
+  salespersonId = '';
   constructor(private apiCallsService: ApiCallsService, private utilService: UtilService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+              private router: Router, private activatedRoute: ActivatedRoute, private windowRefService: WindowRefService) {
   }
 
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(take(1)).subscribe(async (params: ParamMap) => {
-      this.opportunityId = params.get('id') || '';
-      console.log('111 OPP ID', this.opportunityId)
-      this.setPulseHistory(this.opportunityId);
+      const url = this.windowRefService.nativeWindow.location.href;
+
+      const id = params.get('id') || '';
+      const isSalesPersonView = url.includes('salesperson');
+      this.opportunityId = !isSalesPersonView ? id : this.opportunityId;
+      this.salespersonId = isSalesPersonView ? id : this.salespersonId;
+      console.log('111 OPP ID', this.opportunityId, url, isSalesPersonView)
+      this.setPulseHistory();
     });
   }
 
-  async setPulseHistory(opportunityId: string) {
+  async setPulseHistory() {
     this.showLoader = true;
     this.setFilters();
-    this.history = await lastValueFrom(this.apiCallsService.getChangeHistory('', '', opportunityId, ''));
+    this.history = await lastValueFrom(this.apiCallsService.getChangeHistory('', '', this.opportunityId, this.salespersonId));
     this.filteredHistory = [...this.history];
     this.showLoader = false;
     this.setHistoryMap(this.filteredHistory);
@@ -93,7 +102,7 @@ export class ChangeHistoryComponent implements OnInit {
     const typeId = this.selectedFilters['Opp Type'].join(',');
     const pulseId = this.selectedFilters['Pulse Type'].join(',');
     this.showLoader = true;
-    this.filteredHistory = await lastValueFrom(this.apiCallsService.getChangeHistory(typeId, pulseId, this.opportunityId, ''));
+    this.filteredHistory = await lastValueFrom(this.apiCallsService.getChangeHistory(typeId, pulseId, this.opportunityId, this.salespersonId));
     this.filteredHistory = this.sortBy === 'OLDEST' ? this.filteredHistory.reverse() : this.filteredHistory;
     this.setHistoryMap(this.filteredHistory)
     this.showFilterModal = false;

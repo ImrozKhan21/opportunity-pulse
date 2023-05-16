@@ -4,7 +4,7 @@ import {WindowRefService} from "./services/window-ref.service";
 import {ApiCallsService} from "./services/api-calls.service";
 import {CinchyService} from "@cinchy-co/angular-sdk";
 import {Router} from "@angular/router";
-import {lastValueFrom} from "rxjs";
+import {isEmpty, lastValueFrom} from "rxjs";
 import {INavigation} from "./models/common.model";
 import {environment} from "../environments/environment";
 
@@ -65,7 +65,6 @@ export class AppComponent implements OnInit {
       route = currentUrl?.split(':4200')[1] || currentUrl?.split('/dx/opportunity-pulse')[1] || route;
     }
     const routeWithoutQueryParam = route.split('?')[0];
-    console.log('1111 routeWithoutQueryParam', routeWithoutQueryParam, route);
     const queryParams: any = {};
     if (route.split('?')[1]) {
       const urlParams = new URLSearchParams(route.split('?')[1]);
@@ -73,7 +72,13 @@ export class AppComponent implements OnInit {
         queryParams[key] = value;
       });
     }
-    this.router.navigate([`${routeWithoutQueryParam}`], {queryParams});
+    console.log('1111 routeWithoutQueryParam', routeWithoutQueryParam, route, );
+
+    if (Object.keys(queryParams)?.length) {
+      this.router.navigate([`${routeWithoutQueryParam}`], {queryParams});
+    } else {
+      this.router.navigateByUrl(`${routeWithoutQueryParam}`);
+    }
     sessionStorage.removeItem('current-url-pulse')
   }
 }
