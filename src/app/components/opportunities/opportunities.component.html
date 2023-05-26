@@ -59,8 +59,8 @@
           </div>
 
           <div class="flex gap-2 items-center">
-            <img style="width: 22px; height: 22px" [src]="'assets/images/status_change-'+opportunity.icon+'.svg'" alt="positive_icon">
-
+            <img style="width: 22px; height: 22px" *ngIf="opportunity.icon" [src]="'assets/images/'+opportunity.pulseId+'-'+opportunity.icon+'.svg'" alt="icon">
+            <img style="width: 22px; height: 22px" *ngIf="!opportunity.icon" [src]="'assets/images/'+opportunity.pulseId+'.svg'" alt="icon">
             <p class="text-[12px] text-gray-500 line-clamp-1 max-w-[270px]" [title]="opportunity.pulseDesc"
                [innerHTML]="opportunity.pulseDesc"></p>
           </div>

@@ -12,9 +12,8 @@ export class OpportunityDetailsComponent implements OnInit{
   opportunityDetails: any;
   labelValuePairs: { label: string, value: any }[] = [];
   expansionLabelValuePairs: { label: string, value: any }[] = [];
-  customStyle: {
-    background: 'white',
-  }
+  isExpanded = false;
+
   constructor(private apiCallsService: ApiCallsService) {
   }
 
@@ -35,5 +34,10 @@ export class OpportunityDetailsComponent implements OnInit{
         label: data[key],
         value: data[key.replace('text2Label-', 'text2-')]
       }));
+  }
+
+  panelToggled(isExpanded: boolean) {
+    this.isExpanded = isExpanded;
+    console.log('111 E');
   }
 }

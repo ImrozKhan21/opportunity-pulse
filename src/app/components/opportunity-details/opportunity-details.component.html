@@ -8,12 +8,18 @@
       <nz-divider></nz-divider>
 
       <nz-collapse nzGhost [nzExpandIconPosition]="'right'">
-        <nz-collapse-panel [nzHeader]="'Why Cinchy'">
+        <nz-collapse-panel #p *ngIf="opportunityDetails" [nzHeader]="opportunityDetails[0]?.text2Header"
+                           [nzExpandedIcon]="expandedIcon" (nzActiveChange)="panelToggled($event)">
           <div class="mt-2">
             <ng-container *ngFor="let item of expansionLabelValuePairs">
               <div class="mb-2"><p class="font-semibold mr-1">{{item.label}}:</p> <p>{{item.value}}</p></div>
             </ng-container>
           </div>
+
+          <ng-template #expandedIcon let-active>
+            <span *ngIf="!isExpanded" nz-icon nzType="down"  nzTheme="outline" class="ant-collapse-arrow"></span>
+            <span *ngIf="isExpanded" nz-icon nzType="up"  nzTheme="outline" class="ant-collapse-arrow"></span>
+          </ng-template>
         </nz-collapse-panel>
       </nz-collapse>
     </ng-container>

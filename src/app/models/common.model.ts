@@ -8,6 +8,7 @@ export interface IEnv {
 
 export interface IChangeHistory {
   pulseDesc: string;
+  pulseId: string;
   dateStr: string;
   timeStr: string;
   id: string;
@@ -68,7 +69,10 @@ export const PulseTypeImageMap: any = {
   'STATUS CHANGE': 'status_change',
   'NEW OPPORTUNITY': 'new_opportunity',
   'ARR CHANGE': 'arr_change',
-  'EST ONE-TIME REVENUE CHANGE': 'one_time_revenue'
+  'EST ONE-TIME REVENUE CHANGE': 'one_time_revenue',
+  'OPPORTUNITY WON': 'opportunity_won',
+  'OPPORTUNITY DEAD': 'opportunity_dead',
+  'OPPORTUNITY REOPENED': 'opportunity_reopened'
 }
 
 
@@ -88,4 +92,5 @@ export interface IOpportunity {
   timeStr: string;
   owner: string;
   id: string;
+  pulseId: string;
 }

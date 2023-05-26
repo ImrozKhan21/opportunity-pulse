@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApiCallsService} from "../../services/api-calls.service";
 import {lastValueFrom, take} from "rxjs";
-import {IChangeHistory, IFilter, PayloadMap, PulseTypeImageMap} from "../../models/common.model";
+import {IChangeHistory, IFilter, ISalesperson, PayloadMap, PulseTypeImageMap} from "../../models/common.model";
 import {UtilService} from "../../services/util.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {WindowRefService} from "../../services/window-ref.service";
@@ -28,6 +28,7 @@ export class ChangeHistoryComponent implements OnInit {
   pulseTypeImageMap = PulseTypeImageMap;
   opportunityId = '';
   salespersonId = '';
+  currentSalesperson: ISalesperson;
   constructor(private apiCallsService: ApiCallsService, private utilService: UtilService,
               private router: Router, private activatedRoute: ActivatedRoute, private windowRefService: WindowRefService) {
   }
@@ -50,6 +51,10 @@ export class ChangeHistoryComponent implements OnInit {
     this.setFilters();
     this.history = await lastValueFrom(this.apiCallsService.getChangeHistory('', '', this.opportunityId, this.salespersonId));
     this.filteredHistory = [...this.history];
+    const salesperson = await lastValueFrom(this.apiCallsService.getSalesPerson());
+    if(this.salespersonId) {
+      this.currentSalesperson = salesperson.find((person: ISalesperson) => person.person === this.salespersonId);
+    }
     this.showLoader = false;
     this.setHistoryMap(this.filteredHistory);
   }

@@ -14,16 +14,16 @@ import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 import {FormsModule} from "@angular/forms";
 import {NzRadioModule} from "ng-zorro-antd/radio";
-import { SalespersonComponent } from './salesperson/salesperson.component';
+import {SalespersonComponent} from './salesperson/salesperson.component';
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzAutocompleteModule} from "ng-zorro-antd/auto-complete";
-import { ExceptionsComponent } from './exceptions/exceptions.component';
-import { OpportunityComponent } from './opportunity/opportunity.component';
+import {ExceptionsComponent} from './exceptions/exceptions.component';
+import {OpportunityComponent} from './opportunity/opportunity.component';
 import {NzButtonModule} from "ng-zorro-antd/button";
-import { OpportunitiesComponent } from './opportunities/opportunities.component';
-import { SalespersonOpportunitiesComponent } from './salesperson-opportunities/salesperson-opportunities.component';
-import { OpportunityDetailsComponent } from './opportunity-details/opportunity-details.component';
+import {OpportunitiesComponent} from './opportunities/opportunities.component';
+import {SalespersonOpportunitiesComponent} from './salesperson-opportunities/salesperson-opportunities.component';
+import {OpportunityDetailsComponent} from './opportunity-details/opportunity-details.component';
 
 
 @NgModule({
@@ -39,25 +39,25 @@ import { OpportunityDetailsComponent } from './opportunity-details/opportunity-d
   exports: [
     ChangeHistoryComponent
   ],
-    imports: [
-        CommonModule,
-        NzDividerModule,
-        NzTimelineModule,
-        SharedModule,
-        PipesModule,
-        CoreModule,
-        NzCardModule,
-        FontAwesomeModule,
-        NzCollapseModule,
-        NzModalModule,
-        NzCheckboxModule,
-        FormsModule,
-        NzRadioModule,
-        NzInputModule,
-        NzIconModule,
-        NzAutocompleteModule,
-        NzButtonModule
-    ]
+  imports: [
+    CommonModule,
+    NzDividerModule,
+    NzTimelineModule,
+    SharedModule,
+    PipesModule,
+    CoreModule,
+    NzCardModule,
+    FontAwesomeModule,
+    NzCollapseModule,
+    NzModalModule,
+    NzCheckboxModule,
+    FormsModule,
+    NzRadioModule,
+    NzInputModule,
+    NzIconModule,
+    NzAutocompleteModule,
+    NzButtonModule
+  ]
 })
 export class ComponentsModule {
 }

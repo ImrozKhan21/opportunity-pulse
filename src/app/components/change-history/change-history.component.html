@@ -5,20 +5,20 @@
 
   <!--OPPORTUNITY VIEW-->
   <div class="p-5" *ngIf="history?.length && hideHeader && !showSalespersonView">
-    <div class="bg-white mb-5">
+    <div class="bg-white mb-5" [ngStyle]="{'background-color': '#9CD580'}">
       <div class="relative">
-        <div [ngStyle]="{'background-color': '#9CD580'}" class="h-[100px] w-full"></div>
+        <div class="h-[100px] w-full"></div>
         <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].companyLogo" alt="company_logo">
       </div>
 
       <div class="p-5 pt-[45px] flex flex-col items-center">
         <p class="text-xl text-center font-semibold">{{history[0].account}}</p>
         <p class="text-2xl text-center font-semibold">{{history[0].pulseHeader}}</p>
-        <p class="text-gray-500">{{history[0].openDate}}</p>
+        <p class="text-gray-700">{{history[0].openDate}}</p>
 
-        <button class="mt-3" nz-button nzType="primary" [nzSize]="'large'" nzShape="round">
+       <!-- <button class="mt-3" nz-button nzType="primary" [nzSize]="'large'" nzShape="round">
           {{history[0].buttonLabel}}
-        </button>
+        </button>-->
       </div>
     </div>
 
@@ -42,15 +42,15 @@
 
  <!-- SALESPERSON VIEW-->
   <div class="p-5" *ngIf="history?.length && hideHeader && showSalespersonView">
-    <div class="bg-white mb-5">
+    <div class="bg-white mb-5" [ngStyle]="{'background-color': '#35005f'}">
       <div class="relative">
-        <div [ngStyle]="{'background-color': '#35005f'}" class="h-[100px] w-full"></div>
-        <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].ownerImage" alt="owner_image">
+        <div class="h-[100px] w-full"></div>
+        <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="'data:image/png;base64,' + history[0].ownerImage" alt="owner_image">
       </div>
 
       <div class="p-5 pt-[45px] flex flex-col items-center">
-        <p class="text-xl text-center font-semibold">{{history[0].owner}}</p>
-        <p class="text-gray-500">{{history[0].ownerTitle}}</p>
+        <p class="text-white text-xl text-center font-semibold">{{history[0].owner}}</p>
+        <p class="text-white">{{history[0].ownerTitle}}</p>
       </div>
     </div>
   </div>
@@ -78,7 +78,8 @@
           <!--
                     <fa-icon class="mt-1 cursor-pointer" [icon]="['fas', 'bell']" [size]="'lg'"></fa-icon>
           -->
-          <img [src]="'assets/images/'+pulseTypeImageMap[history.pulseType]+'-'+history.icon+'.svg'">
+          <img *ngIf="history.icon" [src]="'assets/images/'+history.pulseId+'-'+history.icon+'.svg'" alt="icon">
+          <img *ngIf="!history.icon" [src]="'assets/images/'+history.pulseId+'.svg'" alt="icon">
 
           <div class="w-full">
             <div class="flex items-center justify-between w-full gap-5 mb-2">
@@ -89,7 +90,9 @@
             </div>
 
             <div class="flex items-center gap-2 mb-1" *ngIf="!hideCompanyInfo || showSalespersonView">
+<!--
               <img style="width: 25px; height: 25px" [src]="history.companyLogo" alt="company_logo">
+-->
               <p class="basis-3/4 font-bold" [title]="history.pulseHeader"
                  [innerHTML]="history.pulseHeader"></p>
             </div>
@@ -99,7 +102,7 @@
 
           </div>
 
-          <fa-icon class="mt-1 cursor-pointer item-right-center-n-relative mr-4 text-gray-400"
+          <fa-icon *ngIf="!hideHeader" class="mt-1 cursor-pointer item-right-center-n-relative mr-4 text-gray-400"
                    [icon]="['fas', 'chevron-right']" [size]="'1x'"></fa-icon>
 
         </div>

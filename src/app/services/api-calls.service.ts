@@ -3,7 +3,7 @@ import {Observable, of} from "rxjs";
 import {ConfigService} from "../config.service";
 import {HttpClient} from "@angular/common/http";
 import {map, tap} from "rxjs/operators";
-import {IChangeHistory, IException} from "../models/common.model";
+import {IChangeHistory, IException, ISalesperson} from "../models/common.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ import {IChangeHistory, IException} from "../models/common.model";
 export class ApiCallsService {
   cachedHistory: IChangeHistory[];
   cachedExceptions: IException[];
+  cachedSalesPerson: ISalesperson[];
 
   constructor(private configService: ConfigService, private http: HttpClient) {
   }
@@ -38,7 +39,12 @@ export class ApiCallsService {
 
   getSalesPerson() {
     const url = `/API/Zero-Integration%20App%20Factory/Get%20Salesperson%20for%20Pulse`;
-    return this.getResponse(url);
+    if (this.cachedSalesPerson) {
+      return of(this.cachedSalesPerson)
+    }
+    return this.getResponse(url).pipe(tap(resp => {
+      this.cachedSalesPerson = resp;
+    }));
   }
 
   getExceptions() {
