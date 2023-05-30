@@ -122,5 +122,9 @@ export class ChangeHistoryComponent implements OnInit {
     this.router.navigate([`/opportunity/${history.id}`])
   }
 
+  goToSalespersonView(history: IChangeHistory) {
+    this.router.navigate([`/salesperson/${history.owner}`])
+  }
+
 
 }

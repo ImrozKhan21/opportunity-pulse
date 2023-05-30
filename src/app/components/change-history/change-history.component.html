@@ -4,11 +4,11 @@
   <app-header *ngIf="!hideHeader" [header]="'Opportunity Pulse'"></app-header>
 
   <!--OPPORTUNITY VIEW-->
-  <div class="p-5" *ngIf="history?.length && hideHeader && !showSalespersonView">
-    <div class="bg-white mb-5" [ngStyle]="{'background-color': '#9CD580'}">
-      <div class="relative">
+  <div class="lg:pl-0 lg:pr-0 md:pl-0 md:pr-0 p-5" *ngIf="history?.length && hideHeader && !showSalespersonView">
+    <div class="bg-white mb-5">
+      <div class="relative" [ngStyle]="{'background-color': '#9CD580'}">
         <div class="h-[100px] w-full"></div>
-        <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].companyLogo" alt="company_logo">
+        <img class="bg-white border-2 border-gray-600 border-solid rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].companyLogo" alt="company_logo">
       </div>
 
       <div class="p-5 pt-[45px] flex flex-col items-center">
@@ -25,7 +25,7 @@
     <nz-card class="mb-5">
       <h2 class="text-xl font-semibold">Owner</h2>
       <nz-divider></nz-divider>
-      <div class="flex gap-5">
+      <div class="flex gap-5 cursor-pointer" (click)="goToSalespersonView(history[0])">
         <img class="rounded-[50%]" style="width: 50px; height: 50px;min-width: 50px; min-height: 50px"
              [src]="'data:image/png;base64,' + history[0].ownerImage"
              alt="photo">
@@ -41,22 +41,22 @@
   </div>
 
  <!-- SALESPERSON VIEW-->
-  <div class="p-5" *ngIf="history?.length && hideHeader && showSalespersonView">
-    <div class="bg-white mb-5" [ngStyle]="{'background-color': '#35005f'}">
-      <div class="relative">
+  <div class="lg:pl-0 lg:pr-0 md:pl-0 md:pr-0 p-5" *ngIf="history?.length && hideHeader && showSalespersonView">
+    <div class="bg-white mb-5">
+      <div class="relative" [ngStyle]="{'background-color': '#35005f'}">
         <div class="h-[100px] w-full"></div>
-        <img class="rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="'data:image/png;base64,' + history[0].ownerImage" alt="owner_image">
+        <img class="bg-white border-2 border-gray-600 border-solid rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="'data:image/png;base64,' + history[0].ownerImage" alt="owner_image">
       </div>
 
       <div class="p-5 pt-[45px] flex flex-col items-center">
-        <p class="text-white text-xl text-center font-semibold">{{history[0].owner}}</p>
-        <p class="text-white">{{history[0].ownerTitle}}</p>
+        <p class="text-xl text-center font-semibold">{{history[0].owner}}</p>
+        <p class="text-gray-600">{{history[0].ownerTitle}}</p>
       </div>
     </div>
   </div>
 
 
-  <div *ngIf="newHistoryMap" class="p-5 pb-[70px]">
+  <div *ngIf="newHistoryMap" class="lg:pl-0 lg:pr-0 md:pl-0 md:pr-0 p-5 pb-[70px]">
     <div class="mb-3 flex justify-between items-center">
       <div>
         <span class="font-semibold text-[18px]">Updates </span>
