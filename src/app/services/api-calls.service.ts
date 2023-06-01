@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {ConfigService} from "../config.service";
 import {HttpClient} from "@angular/common/http";
 import {map, tap} from "rxjs/operators";
-import {IChangeHistory, IException, ISalesperson} from "../models/common.model";
+import {IChangeHistory, IException, ISalesperson, IUser} from "../models/common.model";
+import {isPlatformBrowser} from "@angular/common";
+import {CinchyService} from "@cinchy-co/angular-sdk";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,11 @@ export class ApiCallsService {
   cachedHistory: IChangeHistory[];
   cachedExceptions: IException[];
   cachedSalesPerson: ISalesperson[];
+  userDetails$: BehaviorSubject<string> = new BehaviorSubject<string>(({} as string));
+  userDetails: string;
 
-  constructor(private configService: ConfigService, private http: HttpClient) {
+  constructor(private configService: ConfigService, private cinchyService: CinchyService,
+              private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any,) {
   }
 
   getChangeHistory(typeId: string, pulseId: string, opportunityId: string, ownerId: string) {
@@ -65,6 +70,95 @@ export class ApiCallsService {
   getFilters() {
     const url = `/API/Zero-Integration%20App%20Factory/Get%20Opportunity%20Pulse%20Filters`;
     return this.getResponse(url);
+  }
+
+  getSavedFilters(user: string) {
+    const url = `/API/Zero-Integration%20App%20Factory/Get%20User%20Saved%20Filters?%40currentUser=${user}`;
+    return this.getResponse(url);
+  }
+
+  savedFiltersForUser(filters: string) {
+    const url = `/API/Zero-Integration%20App%20Factory/Update%20User%20Saved%20Filters?%40filters=${filters}`;
+    return this.getResponse(url);
+  }
+
+  setUserInfo() {
+    this.setUserDetails().then(val => {
+      this.setUserDetailsSub(val);
+      const userDetail = localStorage.getItem('hub-user-details') || '';
+      //  console.log('In user details', val);
+      if (!val && userDetail) {
+        //  console.log('In no user details if', userDetail);
+        this.userDetails = userDetail ? JSON.parse(userDetail) : null;
+        this.setUserDetailsSub(this.userDetails);
+      }
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('hub-user-details', JSON.stringify(val));
+      }
+    }).catch((e: any) => {
+      if (isPlatformBrowser(this.platformId)) {
+        console.error(e);
+        const userDetail = localStorage.getItem('hub-user-details') || '';
+        this.userDetails = userDetail ? JSON.parse(userDetail) : null;
+        this.setUserDetailsSub(this.userDetails);
+        console.error(e);
+      }
+    });
+  }
+
+  async setUserDetails(): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      let userObjectFromStorageStr;
+      if (isPlatformBrowser(this.platformId)) {
+        userObjectFromStorageStr = sessionStorage.getItem('id_token_claims_obj');
+      }
+      //   console.log('IN IF SESSION USER', userObjectFromStorageStr);
+      if (userObjectFromStorageStr) {
+        const userObjectFromStorage = JSON.parse(userObjectFromStorageStr);
+        //   console.log('IN IF 2 SESSION USER', userObjectFromStorageStr);
+      //  const userDetails = await this.getLoggedInUserDetails(userObjectFromStorage.id).toPromise() as IUser[];
+        //   console.log('IN IF 2 SESSION userDetails', userDetails)
+        resolve(userObjectFromStorage.id);
+      } else {
+        // console.log('IN USER ELSE INSIDE 1', this.cinchyService.getUserIdentity);
+        let userDetail = localStorage.getItem('hub-user-details') || '';
+        if (isPlatformBrowser(this.platformId)) {
+          //     console.log('IN USER ELSE LOCAL');
+          userDetail = userDetail ? JSON.parse(userDetail) : null;
+          resolve(userDetail);
+        }
+        if (!userDetail) {
+          this.cinchyService.getUserIdentity().subscribe(async (user: any) => {
+            //   console.log('IN USER ELSE INSIDE', user);
+            if (user?.id) {
+              //   console.log('IN USER ELSE INSIDE ID', user);
+           //   const userDetailsIdentity = await this.getLoggedInUserDetails(user.id).toPromise() as IUser[];
+              // console.log('IN USER ELSE INSIDE ID userDetailsIdentity', userDetailsIdentity);
+              resolve(user.id);
+            } else {
+              // console.log('IN USER ELSE INSIDE ID userDetailsIdentity REJECT');
+              reject('No user details');
+            }
+          }, error => {
+            console.log('IN REJECT', error)
+            reject('No user details');
+          });
+        }
+      }
+    })
+  }
+
+  getLoggedInUserDetails(userName: string): Observable<IUser[]> {
+    const url = `/API/Website/Get%20User%20Details?%40userName=${userName}`;
+    return this.getResponse(url);
+  }
+
+  setUserDetailsSub(val: string) {
+    this.userDetails$.next(val);
+  }
+
+  getUserDetailsSub() {
+    return this.userDetails$.asObservable();
   }
 
   getResponse(url: string): Observable<any> {

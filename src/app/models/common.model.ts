@@ -94,3 +94,12 @@ export interface IOpportunity {
   id: string;
   pulseId: string;
 }
+
+
+export interface IUser {
+  displayName: string;
+  name: string;
+  username: string;
+  photo: string;
+  joinedDate: string;
+}

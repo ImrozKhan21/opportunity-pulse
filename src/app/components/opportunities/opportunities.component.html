@@ -3,7 +3,7 @@
 <section>
   <app-header *ngIf="!hideHeader" [header]="'Opportunities'"></app-header>
 
-  <div *ngIf="opportunities" class="p-5 pt-5 pb-[70px]">
+  <div *ngIf="opportunities" class="g:pl-0 lg:pr-0 md:pl-0 md:pr-0 p-5 pb-[70px]">
     <nz-input-group class="mb-4" [nzPrefix]="prefixSearch" [nzSuffix]="inputClearTpl">
       <input type="text" nz-input placeholder="Search for opportunity"
              [(ngModel)]="inputValue"

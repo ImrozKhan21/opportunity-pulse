@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
 
   async setDetails() {
     this.isLoggedIn = true;
+    this.apiCallsService.setUserInfo();
     this.navigation = await lastValueFrom(this.apiCallsService.getNavigation());
     this.setRouting();
     console.log('1111 navihagtion', this.navigation)
