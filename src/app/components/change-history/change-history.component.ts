@@ -31,7 +31,10 @@ export class ChangeHistoryComponent implements OnInit {
   salespersonId = '';
   currentSalesperson: ISalesperson;
   userDetails: string;
-
+  size: 'large' | 'small' | 'default' = 'default';
+  fromDate: Date;
+  toDate: Date;
+// new Date(fromDate).toLocaleDateString()
   constructor(private apiCallsService: ApiCallsService, private utilService: UtilService,
               private router: Router, private activatedRoute: ActivatedRoute, private windowRefService: WindowRefService) {
   }
@@ -83,12 +86,14 @@ export class ChangeHistoryComponent implements OnInit {
       }
       return {...lookUpObj, [filter.section]: lookUpObj[filter.section]}
     }, {});
+    this.allSelectedFilters = filters.filter(fil => fil.checked);
     this.filterKeys = Object.keys(this.filters);
   }
 
   async setHistory(preSelectFilter = false) {
     const typeId = preSelectFilter ? this.selectedFilters['Opp Type'].join(',') : '';
     const pulseId = preSelectFilter ? this.selectedFilters['Pulse Type'].join(',') : '';
+    console.log('111 FROM ADTAE', this.fromDate, this.toDate);
     this.history = await lastValueFrom(this.apiCallsService.getChangeHistory(typeId, pulseId, this.opportunityId, this.salespersonId));
     this.filteredHistory = [...this.history];
     const salesperson = await lastValueFrom(this.apiCallsService.getSalesPerson());
@@ -136,14 +141,17 @@ export class ChangeHistoryComponent implements OnInit {
   }
 
   async handleOk(dontSave = false) {
-    const typeId = this.selectedFilters['Opp Type'].join(',');
-    const pulseId = this.selectedFilters['Pulse Type'].join(',');
+    const typeId = this.selectedFilters['Opp Type'] ? this.selectedFilters['Opp Type'].join(',') : '';
+    const pulseId = this.selectedFilters['Pulse Type'] ? this.selectedFilters['Pulse Type'].join(',') : '';
     this.showLoader = true;
-    this.filteredHistory = await lastValueFrom(this.apiCallsService.getChangeHistory(typeId, pulseId, this.opportunityId, this.salespersonId));
+    const toDate = this.toDate ? this.toDate.toLocaleDateString() : '';
+    const fromDate = this.fromDate ? this.fromDate.toLocaleDateString() : '';
+    this.filteredHistory = await lastValueFrom(this.apiCallsService.getChangeHistory(typeId, pulseId,
+      this.opportunityId, this.salespersonId, toDate, fromDate));
     this.filteredHistory = this.sortBy === 'OLDEST' ? this.filteredHistory.reverse() : this.filteredHistory;
     this.setHistoryMap(this.filteredHistory)
     this.showFilterModal = false;
-    if (!dontSave) {
+    if (!dontSave && Object.keys(this.selectedFilters).length) {
       this.saveFilterForUser();
     }
     this.showLoader = false;
@@ -163,7 +171,7 @@ export class ChangeHistoryComponent implements OnInit {
   }
 
   async saveFilterForUser() {
-    const allFilterIdParam = this.allSelectedFilters.map(filter => filter.id).join();
+    const allFilterIdParam = this.allSelectedFilters?.map(filter => filter.id).join();
     console.log('111 SE FILTER', this.allSelectedFilters, allFilterIdParam);
 
     await lastValueFrom(this.apiCallsService.savedFiltersForUser(allFilterIdParam));

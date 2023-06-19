@@ -24,6 +24,7 @@ import {NzButtonModule} from "ng-zorro-antd/button";
 import {OpportunitiesComponent} from './opportunities/opportunities.component';
 import {SalespersonOpportunitiesComponent} from './salesperson-opportunities/salesperson-opportunities.component';
 import {OpportunityDetailsComponent} from './opportunity-details/opportunity-details.component';
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 
 @NgModule({
@@ -39,25 +40,26 @@ import {OpportunityDetailsComponent} from './opportunity-details/opportunity-det
   exports: [
     ChangeHistoryComponent
   ],
-  imports: [
-    CommonModule,
-    NzDividerModule,
-    NzTimelineModule,
-    SharedModule,
-    PipesModule,
-    CoreModule,
-    NzCardModule,
-    FontAwesomeModule,
-    NzCollapseModule,
-    NzModalModule,
-    NzCheckboxModule,
-    FormsModule,
-    NzRadioModule,
-    NzInputModule,
-    NzIconModule,
-    NzAutocompleteModule,
-    NzButtonModule
-  ]
+    imports: [
+        CommonModule,
+        NzDividerModule,
+        NzTimelineModule,
+        SharedModule,
+        PipesModule,
+        CoreModule,
+        NzCardModule,
+        FontAwesomeModule,
+        NzCollapseModule,
+        NzModalModule,
+        NzCheckboxModule,
+        FormsModule,
+        NzRadioModule,
+        NzInputModule,
+        NzIconModule,
+        NzAutocompleteModule,
+        NzButtonModule,
+        NzDatePickerModule
+    ]
 })
 export class ComponentsModule {
 }

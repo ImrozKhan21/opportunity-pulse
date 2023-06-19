@@ -8,7 +8,8 @@
     <div class="bg-white mb-5">
       <div class="relative" [ngStyle]="{'background-color': '#9CD580'}">
         <div class="h-[100px] w-full"></div>
-        <img class="bg-white border-2 border-gray-600 border-solid rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="history[0].companyLogo" alt="company_logo">
+        <img class="bg-white border-2 border-gray-600 border-solid rounded-full item-center-n-relative"
+             style="top:95px; width: 80px; height: 80px" [src]="history[0].companyLogo" alt="company_logo">
       </div>
 
       <div class="p-5 pt-[45px] flex flex-col items-center">
@@ -16,9 +17,9 @@
         <p class="text-2xl text-center font-semibold">{{history[0].pulseHeader}}</p>
         <p class="text-gray-700">{{history[0].openDate}}</p>
 
-       <!-- <button class="mt-3" nz-button nzType="primary" [nzSize]="'large'" nzShape="round">
-          {{history[0].buttonLabel}}
-        </button>-->
+        <!-- <button class="mt-3" nz-button nzType="primary" [nzSize]="'large'" nzShape="round">
+           {{history[0].buttonLabel}}
+         </button>-->
       </div>
     </div>
 
@@ -40,12 +41,14 @@
 
   </div>
 
- <!-- SALESPERSON VIEW-->
+  <!-- SALESPERSON VIEW-->
   <div class="lg:pl-0 lg:pr-0 md:pl-0 md:pr-0 p-5" *ngIf="history?.length && hideHeader && showSalespersonView">
     <div class="bg-white mb-5">
       <div class="relative" [ngStyle]="{'background-color': '#35005f'}">
         <div class="h-[100px] w-full"></div>
-        <img class="bg-white border-2 border-gray-600 border-solid rounded-full item-center-n-relative" style="top:95px; width: 80px; height: 80px" [src]="'data:image/png;base64,' + history[0].ownerImage" alt="owner_image">
+        <img class="bg-white border-2 border-gray-600 border-solid rounded-full item-center-n-relative"
+             style="top:95px; width: 80px; height: 80px" [src]="'data:image/png;base64,' + history[0].ownerImage"
+             alt="owner_image">
       </div>
 
       <div class="p-5 pt-[45px] flex flex-col items-center">
@@ -90,9 +93,9 @@
             </div>
 
             <div class="flex items-center gap-2 mb-1" *ngIf="!hideCompanyInfo || showSalespersonView">
-<!--
-              <img style="width: 25px; height: 25px" [src]="history.companyLogo" alt="company_logo">
--->
+              <!--
+                            <img style="width: 25px; height: 25px" [src]="history.companyLogo" alt="company_logo">
+              -->
               <p class="basis-3/4 font-bold" [title]="history.pulseHeader"
                  [innerHTML]="history.pulseHeader"></p>
             </div>
@@ -128,7 +131,24 @@
 
     <div class="mb-5" *ngFor="let filterKey of filterKeys">
       <p class="text-gray-500 text-sm mb-2">{{filterKey}}</p>
-      <nz-checkbox-group class="flex flex-col" [(ngModel)]="filters[filterKey]" (ngModelChange)="log(filters[filterKey])"></nz-checkbox-group>
+      <nz-checkbox-group class="flex flex-col" [(ngModel)]="filters[filterKey]"
+                         (ngModelChange)="log(filters[filterKey])"></nz-checkbox-group>
+    </div>
+
+    <div class="flex flex-wrap gap-5">
+      <div>
+        <p class="text-gray-500 text-sm">From Date</p>
+
+        <nz-date-picker [(ngModel)]="fromDate" [nzSize]="size"></nz-date-picker>
+      </div>
+
+      <div>
+        <p class="text-gray-500 text-sm">To Date</p>
+
+        <nz-date-picker [(ngModel)]="toDate" [nzSize]="size"></nz-date-picker>
+      </div>
+
+
     </div>
   </ng-container>
 </nz-modal>

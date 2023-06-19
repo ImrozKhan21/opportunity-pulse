@@ -21,11 +21,9 @@ export class ApiCallsService {
               private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any,) {
   }
 
-  getChangeHistory(typeId: string, pulseId: string, opportunityId: string, ownerId: string) {
-    const url = `/API/Zero-Integration%20App%20Factory/Opportunity%20Pulse%202?%40opportunityId=${opportunityId}&%40ownerId=${ownerId}&%40pulseId=${pulseId}&%40typeId=${typeId}`;
-/*    if (this.cachedHistory) {
-      return of(this.cachedHistory)
-    }*/
+  getChangeHistory(typeId: string, pulseId: string, opportunityId: string, ownerId: string, toDate ='', fromDate ='') {
+    const url = `/API/Zero-Integration%20App%20Factory/Opportunity%20Pulse%202?%40from=&%40fromDate=${fromDate}&%40opportunityId=${opportunityId}&%40ownerId=${ownerId}&%40pulseId=${pulseId}&%40to=&%40toDate=${toDate}&%40typeId=${typeId}`;
+    console.log('111 FROM DATE', fromDate, toDate);
     return this.getResponse(url).pipe(tap(resp => {
       this.cachedHistory = resp;
     }));

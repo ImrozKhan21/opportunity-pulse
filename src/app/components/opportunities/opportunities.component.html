@@ -40,14 +40,16 @@
         <!--
                   <fa-icon class="mt-1 cursor-pointer" [icon]="['fas', 'bell']" [size]="'lg'"></fa-icon>
         -->
+<!--
         <img style="width: 50px; height: 50px" [src]="opportunity.companyLogo" alt="company_logo">
+-->
 
         <div class="w-full">
           <div class="flex items-center justify-between w-full gap-5 mb-2">
          <!--   <p class="text-[13px] font-semibold min-w-[178px]"
                [ngClass]="{'text-green-600': history.icon === 'positive', 'text-red-600': history.icon === 'negative' }"
                [title]="history.pulseType" [innerHTML]="history.pulseType"></p>-->
-            <p class="basis-3/4 text-[16px] font-bold line-clamp-1" [title]="opportunity.pulseHeader"
+            <p class="basis-3/4 text-[16px] font-bold" [title]="opportunity.pulseHeader"
                [innerHTML]="opportunity.pulseHeader"></p>
             <p class="text-[12px] text-gray-500" [innerHTML]="opportunity.timeStr"></p>
           </div>
@@ -61,7 +63,7 @@
           <div class="flex gap-2 items-center">
             <img style="width: 22px; height: 22px" *ngIf="opportunity.icon" [src]="'assets/images/'+opportunity.pulseId+'-'+opportunity.icon+'.svg'" alt="icon">
             <img style="width: 22px; height: 22px" *ngIf="!opportunity.icon" [src]="'assets/images/'+opportunity.pulseId+'.svg'" alt="icon">
-            <p class="text-[12px] text-gray-500 line-clamp-1 max-w-[270px]" [title]="opportunity.pulseDesc"
+            <p class="text-[12px] text-gray-500" [title]="opportunity.pulseDesc"
                [innerHTML]="opportunity.pulseDesc"></p>
           </div>
 
